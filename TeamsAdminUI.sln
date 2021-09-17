@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31710.8
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeamsAdminUI", "TeamsAdminUI\TeamsAdminUI.csproj", "{BD4BD465-71CA-4729-B416-877E627206D8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BD4BD465-71CA-4729-B416-877E627206D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD4BD465-71CA-4729-B416-877E627206D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD4BD465-71CA-4729-B416-877E627206D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD4BD465-71CA-4729-B416-877E627206D8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {31C8B946-6280-4B9B-9B1D-F2D14954D9D9}
+	EndGlobalSection
+EndGlobal
