@@ -1,9 +1,7 @@
 ﻿using Microsoft.Graph;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
-namespace TeamsAdminUI.MailSender
+namespace TeamsAdminUI.GraphServices
 {
     public class AadGraphApiDelegatedClient
     {
@@ -24,5 +22,16 @@ namespace TeamsAdminUI.MailSender
                 .PostAsync();
         }
 
+        public async Task<OnlineMeeting> CreateOnlineMeeting(OnlineMeeting onlineMeeting)
+        {
+            return await _graphServiceClient.Me
+                .OnlineMeetings
+                .Request()
+                .AddAsync(onlineMeeting);
+
+        }
     }
+
+
+        
 }

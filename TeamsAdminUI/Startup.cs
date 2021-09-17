@@ -7,7 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
-using TeamsAdminUI.MailSender;
+using Microsoft.IdentityModel.Logging;
+using TeamsAdminUI.GraphServices;
 
 namespace TeamsAdminUI
 {
@@ -22,17 +23,18 @@ namespace TeamsAdminUI
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<AadGraphApiDelegatedClient>();
+            services.AddScoped<AadGraphApiDelegatedClient>();
+            services.AddScoped<EmailService>();
+            services.AddScoped<TeamsService>();
             services.AddHttpClient();
-
             services.AddOptions();
 
-            string[] initialScopes = Configuration.GetValue<string>("UserApiOne:ScopeForAccessToken")?.Split(' ');
+            var scopes = "User.read Mail.Send Mail.ReadWrite OnlineMeetings.ReadWrite";
+            string[] initialScopes = scopes.Split(' ');
 
             services.AddMicrosoftIdentityWebAppAuthentication(Configuration)
-                .EnableTokenAcquisitionToCallDownstreamApi(initialScopes)
-                .AddMicrosoftGraph("https://graph.microsoft.com/beta",
-                    "User.ReadBasic.All user.read")
+                .EnableTokenAcquisitionToCallDownstreamApi()
+                .AddMicrosoftGraph("https://graph.microsoft.com/beta", scopes)
                 .AddInMemoryTokenCaches();
 
             services.AddRazorPages().AddMvcOptions(options =>
@@ -46,6 +48,8 @@ namespace TeamsAdminUI
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            IdentityModelEventSource.ShowPII = true;
+
             if (env.IsProduction())
             {
                 app.UseExceptionHandler("/Error");
