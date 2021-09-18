@@ -38,10 +38,10 @@ namespace TeamsAdminUI.GraphServices
                 .UpdateAsync(onlineMeeting);
         }
 
-        public async Task<OnlineMeeting> GetOnlineMeeting(OnlineMeeting onlineMeeting)
+        public async Task<OnlineMeeting> GetOnlineMeeting(string onlineMeetingId)
         {
             return await _graphServiceClient.Me
-                .OnlineMeetings[onlineMeeting.Id]
+                .OnlineMeetings[onlineMeetingId]
                 .Request()
                 .GetAsync();
         }
