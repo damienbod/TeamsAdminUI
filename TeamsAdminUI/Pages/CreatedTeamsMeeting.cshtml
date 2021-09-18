@@ -25,3 +25,10 @@
 	<p>@attendee.Upn</p>
 
 }
+
+<form method="post">
+    <div class="form-group">
+        <input type="hidden" value="@Model.Meeting.Id" />
+        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Send Mail to attendees</button>
+    </div>
+</form>

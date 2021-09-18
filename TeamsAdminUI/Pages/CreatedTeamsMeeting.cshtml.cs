@@ -1,8 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Identity.Web;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using TeamsAdminUI.GraphServices;
 using Microsoft.Graph;
@@ -12,14 +9,14 @@ namespace TeamsAdminUI.Pages
     public class CreatedTeamsMeetingModel : PageModel
     {
         private readonly AadGraphApiDelegatedClient _aadGraphApiDelegatedClient;
-        private readonly TeamsService _teamsService;
+        private readonly EmailService _emailService;
 
         public CreatedTeamsMeetingModel(
             AadGraphApiDelegatedClient aadGraphApiDelegatedClient,
-            TeamsService teamsService)
+            EmailService emailService)
         {
             _aadGraphApiDelegatedClient = aadGraphApiDelegatedClient;
-            _teamsService = teamsService;
+            _emailService = emailService;
         }
 
         [BindProperty]
@@ -30,5 +27,18 @@ namespace TeamsAdminUI.Pages
             Meeting = await _aadGraphApiDelegatedClient.GetOnlineMeeting(meetingId);
             return Page();
         }
+
+        public async Task<IActionResult> OnPostAsync(string meetingId)
+        {
+            Meeting = await _aadGraphApiDelegatedClient.GetOnlineMeeting(meetingId);
+            foreach (var attendee in Meeting.Participants.Attendees)
+            {
+                var message = _emailService.CreateStandardEmail(attendee.Upn, Meeting.Subject, Meeting.JoinUrl);
+                await _aadGraphApiDelegatedClient.SendEmailAsync(message);
+            }
+            
+            return Page();
+        }
+
     }
 }
