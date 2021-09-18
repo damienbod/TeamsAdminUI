@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Identity.Web;
-using System;
-using System.Threading.Tasks;
 using TeamsAdminUI.GraphServices;
 
 namespace TeamsAdminUI.Pages
@@ -20,14 +18,8 @@ namespace TeamsAdminUI.Pages
             _teamsService = teamsService;
         }
 
-        public async Task OnGetAsync()
+        public void  OnGet()
         {
-            var begin = DateTimeOffset.UtcNow;
-            var end = DateTimeOffset.UtcNow.AddMinutes(60);
-            var meeting = _teamsService.CreateTeamsMeeting("my meeting", begin, end);
-            var createdMeeting = await _aadGraphApiDelegatedClient.CreateOnlineMeeting(meeting);
-
-            JoinUrl = createdMeeting.JoinUrl;
         }
     }
 }
