@@ -31,10 +31,13 @@ namespace TeamsAdminUI.GraphServices
             var meetingAttendees = new List<MeetingParticipantInfo>();
             foreach(var attendee in attendees)
             {
-                meetingAttendees.Add(new MeetingParticipantInfo
+                if(!string.IsNullOrEmpty(attendee))
                 {
-                    Upn = attendee
-                });
+                    meetingAttendees.Add(new MeetingParticipantInfo
+                    {
+                        Upn = attendee
+                    });
+                }
             }
 
             if(onlineMeeting.Participants == null)

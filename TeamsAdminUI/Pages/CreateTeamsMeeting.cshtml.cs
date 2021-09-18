@@ -41,8 +41,11 @@ namespace TeamsAdminUI.Pages
 
             var meeting = _teamsService.CreateTeamsMeeting(MeetingName, Begin, End);
 
+            var attendees = AttendeeEmail.Split(';');
+            List<string> items = new();
+            items.AddRange(attendees);
             var updatedMeeting = _teamsService.AddMeetingParticipants(
-              meeting, new List<string> { AttendeeEmail });
+              meeting, items);
 
             var createdMeeting = await _aadGraphApiDelegatedClient.CreateOnlineMeeting(updatedMeeting);
 

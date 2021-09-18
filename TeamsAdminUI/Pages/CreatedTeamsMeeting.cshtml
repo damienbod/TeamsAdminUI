@@ -16,3 +16,12 @@
 <h2>JoinUrl</h2>
 
 <p>@Model.Meeting.JoinUrl</p>
+
+<h2>Participants</h2>
+
+@foreach(var attendee in Model.Meeting.Participants.Attendees)
+{
+	<label>Attendee</label>
+	<p>@attendee.Upn</p>
+
+}
