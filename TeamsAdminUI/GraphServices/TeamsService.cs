@@ -50,6 +50,10 @@ namespace TeamsAdminUI.GraphServices
                 });
             }
 
+            if(onlineMeeting.Participants == null)
+            {
+                onlineMeeting.Participants = new MeetingParticipants();
+            };
             onlineMeeting.Participants.Attendees = meetingAttendees;
 
             return onlineMeeting;

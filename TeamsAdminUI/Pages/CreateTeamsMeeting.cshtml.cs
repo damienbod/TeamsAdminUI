@@ -40,18 +40,20 @@ namespace TeamsAdminUI.Pages
             }
 
             var meeting = _teamsService.CreateTeamsMeeting(MeetingName, Begin, End);
-            var createdMeeting = await _aadGraphApiDelegatedClient.CreateOnlineMeeting(meeting);
+
+            var updatedMeeting = _teamsService.AddMeetingParticipants(
+              meeting, new List<string> { AttendeeEmail });
+
+            var createdMeeting = await _aadGraphApiDelegatedClient.CreateOnlineMeeting(updatedMeeting);
 
             JoinUrl = createdMeeting.JoinUrl;
 
-            var meetingToUpdate = _teamsService.AddMeetingParticipants(
-                createdMeeting, new List<string> { AttendeeEmail });
+          
 
-            var result = await _aadGraphApiDelegatedClient
-                .UpdateOnlineMeeting(meetingToUpdate);
+            //var result = await _aadGraphApiDelegatedClient
+            //    .UpdateOnlineMeeting(meetingToUpdate);
 
-            return  RedirectToPage("./CreatedTeamsMeeting", "Get", new { meetingId = result.Id });
-            //return RedirectToPage()"./Index");
+            return RedirectToPage("./CreatedTeamsMeeting", "Get", new { meetingId = createdMeeting.Id });
         }
 
         public void OnGet()
