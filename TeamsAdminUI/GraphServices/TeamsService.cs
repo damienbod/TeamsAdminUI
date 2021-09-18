@@ -17,23 +17,10 @@ namespace TeamsAdminUI.GraphServices
                 StartDateTime = begin,
                 EndDateTime = end,
                 Subject = meeting,
-                //Participants = new MeetingParticipants
-                //{
-                //    Attendees = new List<MeetingParticipantInfo>()
-                //    {
-                //        new MeetingParticipantInfo
-                //        {
-                //            Identity = new IdentitySet
-                //            {
-                //                User = new Identity
-                //                {
-                //                    Id = attendee.Id
-                //                }
-                //            },
-                //            Upn = attendee.UserPrincipalName
-                //        }
-                //    }
-                //}
+                LobbyBypassSettings = new LobbyBypassSettings
+                {
+                    Scope = LobbyBypassScope.Everyone
+                }
             };
 
             return onlineMeeting;
