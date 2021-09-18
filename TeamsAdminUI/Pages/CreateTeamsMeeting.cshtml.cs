@@ -50,7 +50,7 @@ namespace TeamsAdminUI.Pages
             var result = await _aadGraphApiDelegatedClient
                 .UpdateOnlineMeeting(meetingToUpdate);
 
-            return  RedirectToPage("./CreatedTeamsMeeting", result.Id);
+            return  RedirectToPage("./CreatedTeamsMeeting", "Get", new { meetingId = result.Id });
             //return RedirectToPage()"./Index");
         }
 

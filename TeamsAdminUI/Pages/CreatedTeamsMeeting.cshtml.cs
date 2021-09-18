@@ -1,5 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Identity.Web;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using TeamsAdminUI.GraphServices;
 using Microsoft.Graph;
 
 namespace TeamsAdminUI.Pages
@@ -22,7 +27,8 @@ namespace TeamsAdminUI.Pages
 
         public async Task<ActionResult> OnGetAsync(string meetingId)
         {
-            OnlineMeeting = await _aadGraphApiDelegatedClient.GetOnlineMeeting(meetingId);
+            Meeting = await _aadGraphApiDelegatedClient.GetOnlineMeeting(meetingId);
+            return Page();
         }
     }
 }
