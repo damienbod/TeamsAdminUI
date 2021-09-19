@@ -20,3 +20,5 @@ https://www.office.com/?auth=2
 https://aad.portal.azure.com/
 
 https://admin.microsoft.com/Adminportal/Home
+
+https://docs.microsoft.com/en-us/graph/cloud-communication-online-meeting-application-access-policy
