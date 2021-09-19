@@ -35,7 +35,7 @@ namespace TeamsAdminUI.GraphServices
                 {
                     meetingAttendees.Add(new MeetingParticipantInfo
                     {
-                        Upn = attendee
+                        Upn = attendee.Trim()
                     });
                 }
             }

@@ -22,6 +22,9 @@ namespace TeamsAdminUI.Pages
         [BindProperty]
         public OnlineMeeting Meeting {get;set;}
 
+        [BindProperty]
+        public string EmailSent { get; set; }
+
         public async Task<ActionResult> OnGetAsync(string meetingId)
         {
             Meeting = await _aadGraphApiDelegatedClient.GetOnlineMeeting(meetingId);
@@ -33,10 +36,12 @@ namespace TeamsAdminUI.Pages
             Meeting = await _aadGraphApiDelegatedClient.GetOnlineMeeting(meetingId);
             foreach (var attendee in Meeting.Participants.Attendees)
             {
-                var message = _emailService.CreateStandardEmail(attendee.Upn, Meeting.Subject, Meeting.JoinUrl);
+                var recipient = attendee.Upn.Trim();
+                var message = _emailService.CreateStandardEmail(recipient, Meeting.Subject, Meeting.JoinUrl);
                 await _aadGraphApiDelegatedClient.SendEmailAsync(message);
             }
-            
+
+            EmailSent = "Emails sent to all attendees, please check your mailbox";
             return Page();
         }
 
