@@ -51,11 +51,6 @@ namespace TeamsAdminUI.Pages
 
             JoinUrl = createdMeeting.JoinUrl;
 
-          
-
-            //var result = await _aadGraphApiDelegatedClient
-            //    .UpdateOnlineMeeting(meetingToUpdate);
-
             return RedirectToPage("./CreatedTeamsMeeting", "Get", new { meetingId = createdMeeting.Id });
         }
 
