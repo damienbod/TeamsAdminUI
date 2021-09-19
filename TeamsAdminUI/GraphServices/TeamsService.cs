@@ -7,8 +7,8 @@ namespace TeamsAdminUI.GraphServices
     public class TeamsService
     {
         public OnlineMeeting CreateTeamsMeeting(
-            string meeting, 
-            DateTimeOffset begin, 
+            string meeting,
+            DateTimeOffset begin,
             DateTimeOffset end)
         {
 
@@ -29,9 +29,9 @@ namespace TeamsAdminUI.GraphServices
         public OnlineMeeting AddMeetingParticipants(OnlineMeeting onlineMeeting, List<string> attendees)
         {
             var meetingAttendees = new List<MeetingParticipantInfo>();
-            foreach(var attendee in attendees)
+            foreach (var attendee in attendees)
             {
-                if(!string.IsNullOrEmpty(attendee))
+                if (!string.IsNullOrEmpty(attendee))
                 {
                     meetingAttendees.Add(new MeetingParticipantInfo
                     {
@@ -40,7 +40,7 @@ namespace TeamsAdminUI.GraphServices
                 }
             }
 
-            if(onlineMeeting.Participants == null)
+            if (onlineMeeting.Participants == null)
             {
                 onlineMeeting.Participants = new MeetingParticipants();
             };

@@ -20,7 +20,7 @@ namespace TeamsAdminUI.Pages
         }
 
         [BindProperty]
-        public OnlineMeeting Meeting {get;set;}
+        public OnlineMeeting Meeting { get; set; }
 
         [BindProperty]
         public string EmailSent { get; set; }
