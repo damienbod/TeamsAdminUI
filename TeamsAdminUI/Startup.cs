@@ -38,7 +38,6 @@ namespace TeamsAdminUI
 
             services.AddRazorPages().AddMvcOptions(options =>
             {
-                
                 var policy = new AuthorizationPolicyBuilder()
                     .RequireAuthenticatedUser()
                     .Build();
