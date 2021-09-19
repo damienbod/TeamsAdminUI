@@ -11,12 +11,12 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="MeetingName" class="control-label"></label>
+                <label asp-for="MeetingName" class="control-label">Meeting name</label>
                 <input asp-for="MeetingName" class="form-control" />
                 <span asp-validation-for="MeetingName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Begin" class="control-label">Begin Time UTC</label>
+                <label asp-for="Begin" class="control-label">Begin time UTC</label>
                 <input asp-for="Begin" class="form-control" />
                 <span asp-validation-for="Begin" class="text-danger"></span>
             </div>
