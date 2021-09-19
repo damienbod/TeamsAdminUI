@@ -30,7 +30,6 @@ namespace TeamsAdminUI
             services.AddOptions();
 
             var scopes = "User.read Mail.Send Mail.ReadWrite OnlineMeetings.ReadWrite";
-            string[] initialScopes = scopes.Split(' ');
 
             services.AddMicrosoftIdentityWebAppAuthentication(Configuration)
                 .EnableTokenAcquisitionToCallDownstreamApi()
