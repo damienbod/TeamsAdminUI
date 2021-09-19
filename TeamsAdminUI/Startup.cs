@@ -39,6 +39,7 @@ namespace TeamsAdminUI
 
             services.AddRazorPages().AddMvcOptions(options =>
             {
+                
                 var policy = new AuthorizationPolicyBuilder()
                     .RequireAuthenticatedUser()
                     .Build();
@@ -70,7 +71,7 @@ namespace TeamsAdminUI
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
+                endpoints.MapRazorPages(); 
                 endpoints.MapControllers();
             });
         }

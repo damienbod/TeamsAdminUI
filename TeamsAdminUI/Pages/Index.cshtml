@@ -1,12 +1,46 @@
 ﻿@page
-@model TeamsAdminUI.Pages.CallApiModel
+@model TeamsAdminUI.Pages.CreateTeamsMeetingModel
 @{
-    ViewData["Title"] = "MyApi";
-    Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<b>JoinUrl</b>
+<h4>Create Teams meeting</h4>
+<hr />
 
-<br /><br />
-<p>@Model.JoinUrl</p>
+<div class="row">
+    <div class="col-md-12">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MeetingName" class="control-label"></label>
+                <input asp-for="MeetingName" class="form-control" />
+                <span asp-validation-for="MeetingName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Begin" class="control-label"></label>
+                <input asp-for="Begin" class="form-control" />
+                <span asp-validation-for="Begin" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="End" class="control-label"></label>
+                <input asp-for="End" class="form-control" />
+                <span asp-validation-for="End" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AttendeeEmail" class="control-label"></label>
+                <input asp-for="AttendeeEmail" class="form-control" />
+                <span asp-validation-for="AttendeeEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Create</button>
+            </div>
+        </form>
+    </div>
+</div>
 
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial").ConfigureAwait(false);}
+}

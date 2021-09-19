@@ -3,27 +3,22 @@
 @{
 }
 
-<h1>Teams Meeting Created</h1>
+<h4>Teams Meeting Created: @Model.Meeting.Subject</h4>
+<hr />
 
-<h2>Meeting Subject:</h2>
-
-<p>@Model.Meeting.Subject</p>
-
-<h2>Meeting Id:</h2>
+<h4>Meeting Id:</h4>
 
 <p>@Model.Meeting.Id</p>
 
-<h2>JoinUrl</h2>
+<h4>JoinUrl</h4>
 
 <p>@Model.Meeting.JoinUrl</p>
 
-<h2>Participants</h2>
+<h4>Participants</h4>
 
 @foreach(var attendee in Model.Meeting.Participants.Attendees)
 {
-	<label>Attendee</label>
 	<p>@attendee.Upn</p>
-
 }
 
 <form method="post">
