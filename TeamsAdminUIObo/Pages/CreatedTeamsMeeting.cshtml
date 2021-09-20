@@ -1,0 +1,31 @@
+﻿@page "{handler?}"
+@model TeamsAdminUIObo.Pages.CreatedTeamsMeetingModel
+@{
+}
+
+<h4>Teams Meeting Created: @Model.Meeting.Subject</h4>
+<hr />
+
+<h4>Meeting Id:</h4>
+
+<p>@Model.Meeting.Id</p>
+
+<h4>JoinUrl</h4>
+
+<p>@Model.Meeting.JoinUrl</p>
+
+<h4>Participants</h4>
+
+@foreach(var attendee in Model.Meeting.Participants.Attendees)
+{
+	<p>@attendee.Upn</p>
+}
+
+<form method="post">
+    <div class="form-group">
+        <input type="hidden" value="@Model.Meeting.Id" />
+        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Send Mail to attendees</button>
+    </div>
+</form>
+
+<p>@Model.EmailSent</p>

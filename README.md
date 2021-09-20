@@ -23,3 +23,5 @@ https://aad.portal.azure.com/
 https://admin.microsoft.com/Adminportal/Home
 
 https://docs.microsoft.com/en-us/graph/cloud-communication-online-meeting-application-access-policy
+
+https://github.com/AzureAD/microsoft-authentication-library-for-dotnet/wiki/Client-credential-flows
