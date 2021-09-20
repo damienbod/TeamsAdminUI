@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.Graph;
 using System.Threading.Tasks;
 
@@ -8,17 +9,20 @@ namespace TeamsAdminUIObo.GraphServices
     {
 		private readonly ApiTokenInMemoryClient _apiTokenInMemoryClient;
 		private readonly ILogger<AadGraphApiapplicationClient> _logger;
+        private readonly IConfiguration _configuration;
 
-		public AadGraphApiapplicationClient(ApiTokenInMemoryClient apiTokenInMemoryClient,
-            ILoggerFactory loggerFactory)
+        public AadGraphApiapplicationClient(ApiTokenInMemoryClient apiTokenInMemoryClient,
+            ILoggerFactory loggerFactory,
+            IConfiguration configuration)
         {
             _apiTokenInMemoryClient = apiTokenInMemoryClient;
             _logger = loggerFactory.CreateLogger<AadGraphApiapplicationClient>();
+            _configuration = configuration;
         }
 
         private async Task<string> GetUserIdAsync()
 		{
-            var meetingOrganizer = "damienbod@damienbodsharepoint.onmicrosoft.com";
+            var meetingOrganizer = _configuration["AzureAd:MeetingOrganizer"];
             var filter = $"startswith(userPrincipalName,'{meetingOrganizer}')";
             var graphServiceClient = await _apiTokenInMemoryClient.GetGraphClient();
 
