@@ -5,18 +5,18 @@ using System.Threading.Tasks;
 
 namespace TeamsAdminUIObo.GraphServices
 {
-	public class AadGraphApiapplicationClient
+	public class AadGraphApiApplicationClient
     {
 		private readonly ApiTokenInMemoryClient _apiTokenInMemoryClient;
-		private readonly ILogger<AadGraphApiapplicationClient> _logger;
+		private readonly ILogger<AadGraphApiApplicationClient> _logger;
         private readonly IConfiguration _configuration;
 
-        public AadGraphApiapplicationClient(ApiTokenInMemoryClient apiTokenInMemoryClient,
+        public AadGraphApiApplicationClient(ApiTokenInMemoryClient apiTokenInMemoryClient,
             ILoggerFactory loggerFactory,
             IConfiguration configuration)
         {
             _apiTokenInMemoryClient = apiTokenInMemoryClient;
-            _logger = loggerFactory.CreateLogger<AadGraphApiapplicationClient>();
+            _logger = loggerFactory.CreateLogger<AadGraphApiApplicationClient>();
             _configuration = configuration;
         }
 
@@ -83,11 +83,5 @@ namespace TeamsAdminUIObo.GraphServices
                 .Request()
                 .GetAsync();
         }
-
-        void MyLoggingMethod(Microsoft.Identity.Client.LogLevel level, string message, bool containsPii)
-        {
-            _logger.LogInformation($"MSAL {level} {containsPii} {message}");
-        }
     }
-
 }

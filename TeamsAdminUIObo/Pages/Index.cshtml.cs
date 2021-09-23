@@ -11,7 +11,7 @@ namespace TeamsAdminUIObo.Pages
     [AuthorizeForScopes(Scopes = new string[] { "User.read", "Mail.Send", "Mail.ReadWrite", "OnlineMeetings.ReadWrite" })]
     public class CreateTeamsMeetingModel : PageModel
     {
-        private readonly AadGraphApiapplicationClient _aadGraphApiDelegatedClient;
+        private readonly AadGraphApiApplicationClient _aadGraphApiDelegatedClient;
         private readonly TeamsService _teamsService;
 
         public string JoinUrl { get; set; }
@@ -25,7 +25,7 @@ namespace TeamsAdminUIObo.Pages
         [BindProperty]
         public string MeetingName { get; set; }
 
-        public CreateTeamsMeetingModel(AadGraphApiapplicationClient aadGraphApiDelegatedClient,
+        public CreateTeamsMeetingModel(AadGraphApiApplicationClient aadGraphApiDelegatedClient,
             TeamsService teamsService)
         {
             _aadGraphApiDelegatedClient = aadGraphApiDelegatedClient;

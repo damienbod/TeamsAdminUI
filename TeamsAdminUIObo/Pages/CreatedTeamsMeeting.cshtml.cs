@@ -8,11 +8,11 @@ namespace TeamsAdminUIObo.Pages
 {
     public class CreatedTeamsMeetingModel : PageModel
     {
-        private readonly AadGraphApiapplicationClient _aadGraphApiDelegatedClient;
+        private readonly AadGraphApiApplicationClient _aadGraphApiDelegatedClient;
         private readonly EmailService _emailService;
 
         public CreatedTeamsMeetingModel(
-            AadGraphApiapplicationClient aadGraphApiDelegatedClient,
+            AadGraphApiApplicationClient aadGraphApiDelegatedClient,
             EmailService emailService)
         {
             _aadGraphApiDelegatedClient = aadGraphApiDelegatedClient;

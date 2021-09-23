@@ -20,8 +20,8 @@ namespace TeamsAdminUIObo
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<AadGraphApiapplicationClient>();
-            services.AddScoped<ApiTokenInMemoryClient>();
+            services.AddScoped<AadGraphApiApplicationClient>();
+            services.AddSingleton<ApiTokenInMemoryClient>();
             services.AddScoped<EmailService>();
             services.AddScoped<TeamsService>();
             services.AddHttpClient();
