@@ -18,7 +18,7 @@ namespace TeamsAdminUIObo.GraphServices
 
 		private readonly IConfiguration _configuration;
         private readonly IConfidentialClientApplication _app;
-        private ConcurrentDictionary<string, AccessTokenItem> _accessTokens = new ConcurrentDictionary<string, AccessTokenItem>();
+        private readonly ConcurrentDictionary<string, AccessTokenItem> _accessTokens = new();
 
         private class AccessTokenItem
         {
@@ -66,7 +66,7 @@ namespace TeamsAdminUIObo.GraphServices
                 else
                 {
                     // remove
-                    _accessTokens.TryRemove(api_name, out AccessTokenItem accessTokenItem);
+                    _accessTokens.TryRemove(api_name, out _);
                 }
             }
 

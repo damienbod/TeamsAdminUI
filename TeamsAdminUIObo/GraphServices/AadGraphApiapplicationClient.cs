@@ -8,15 +8,12 @@ namespace TeamsAdminUIObo.GraphServices
 	public class AadGraphApiApplicationClient
     {
 		private readonly ApiTokenInMemoryClient _apiTokenInMemoryClient;
-		private readonly ILogger<AadGraphApiApplicationClient> _logger;
         private readonly IConfiguration _configuration;
 
         public AadGraphApiApplicationClient(ApiTokenInMemoryClient apiTokenInMemoryClient,
-            ILoggerFactory loggerFactory,
             IConfiguration configuration)
         {
             _apiTokenInMemoryClient = apiTokenInMemoryClient;
-            _logger = loggerFactory.CreateLogger<AadGraphApiApplicationClient>();
             _configuration = configuration;
         }
 
