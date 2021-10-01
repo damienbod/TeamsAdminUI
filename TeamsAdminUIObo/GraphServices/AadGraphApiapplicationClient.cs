@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace TeamsAdminUIObo.GraphServices
 {
-	public class AadGraphApiApplicationClient
+    public class AadGraphApiApplicationClient
     {
-		private readonly ApiTokenInMemoryClient _apiTokenInMemoryClient;
+        private readonly ApiTokenInMemoryClient _apiTokenInMemoryClient;
         private readonly IConfiguration _configuration;
 
         public AadGraphApiApplicationClient(ApiTokenInMemoryClient apiTokenInMemoryClient,
@@ -18,7 +18,7 @@ namespace TeamsAdminUIObo.GraphServices
         }
 
         private async Task<string> GetUserIdAsync()
-		{
+        {
             var meetingOrganizer = _configuration["AzureAd:MeetingOrganizer"];
             var filter = $"startswith(userPrincipalName,'{meetingOrganizer}')";
             var graphServiceClient = await _apiTokenInMemoryClient.GetGraphClient();

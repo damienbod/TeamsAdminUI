@@ -16,7 +16,7 @@ namespace TeamsAdminUIObo.GraphServices
         private readonly IHttpClientFactory _clientFactory;
         private readonly ILogger<ApiTokenInMemoryClient> _logger;
 
-		private readonly IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
         private readonly IConfidentialClientApplication _app;
         private readonly ConcurrentDictionary<string, AccessTokenItem> _accessTokens = new();
 
@@ -26,7 +26,7 @@ namespace TeamsAdminUIObo.GraphServices
             public DateTime ExpiresIn { get; set; }
         }
 
-        public ApiTokenInMemoryClient(IHttpClientFactory clientFactory, 
+        public ApiTokenInMemoryClient(IHttpClientFactory clientFactory,
             IConfiguration configuration, ILoggerFactory loggerFactory)
         {
             _clientFactory = clientFactory;

@@ -9,7 +9,7 @@ using TeamsAdminUIObo.GraphServices;
 
 namespace TeamsAdminUIObo
 {
-	public class Startup
+    public class Startup
     {
         public Startup(IConfiguration configuration)
         {
