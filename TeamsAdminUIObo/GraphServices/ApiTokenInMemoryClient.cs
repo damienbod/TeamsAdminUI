@@ -43,11 +43,12 @@ namespace TeamsAdminUIObo.GraphServices
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", result);
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            GraphServiceClient graphClient = new GraphServiceClient(httpClient)
+            var graphClient = new GraphServiceClient(httpClient)
             {
                 AuthenticationProvider = new DelegateAuthenticationProvider(async (requestMessage) =>
                 {
                     requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", result);
+                    await Task.FromResult<object>(null);
                 })
             };
 
