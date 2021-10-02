@@ -18,7 +18,7 @@ namespace TeamsAdminUIObo.GraphServices
         {
             var meetingOrganizer = _configuration["AzureAd:MeetingOrganizer"];
             var filter = $"startswith(userPrincipalName,'{meetingOrganizer}')";
-            var graphServiceClient = await GetGraphClient();
+            var graphServiceClient = GetGraphClient();
 
             var users = await graphServiceClient.Users
                 .Request()
@@ -30,7 +30,7 @@ namespace TeamsAdminUIObo.GraphServices
 
         public async Task SendEmailAsync(Message message)
         {
-            var graphServiceClient = await GetGraphClient();
+            var graphServiceClient = GetGraphClient();
 
             var saveToSentItems = true;
 
@@ -44,7 +44,7 @@ namespace TeamsAdminUIObo.GraphServices
 
         public async Task<OnlineMeeting> CreateOnlineMeeting(OnlineMeeting onlineMeeting)
         {
-            var graphServiceClient = await GetGraphClient();
+            var graphServiceClient = GetGraphClient();
 
             var userId = await GetUserIdAsync();
 
@@ -56,7 +56,7 @@ namespace TeamsAdminUIObo.GraphServices
 
         public async Task<OnlineMeeting> UpdateOnlineMeeting(OnlineMeeting onlineMeeting)
         {
-            var graphServiceClient = await GetGraphClient();
+            var graphServiceClient = GetGraphClient();
 
             var userId = await GetUserIdAsync();
 
@@ -68,7 +68,7 @@ namespace TeamsAdminUIObo.GraphServices
 
         public async Task<OnlineMeeting> GetOnlineMeeting(string onlineMeetingId)
         {
-            var graphServiceClient = await GetGraphClient();
+            var graphServiceClient = GetGraphClient();
 
             var userId = await GetUserIdAsync();
 
@@ -78,9 +78,8 @@ namespace TeamsAdminUIObo.GraphServices
                 .GetAsync();
         }
 
-        private async Task<GraphServiceClient> GetGraphClient()
+        private GraphServiceClient GetGraphClient()
         {
-
             string[] scopes = new[] { "https://graph.microsoft.com/.default" };
             var tenantId = _configuration["AzureAd:TenantId"];
 
