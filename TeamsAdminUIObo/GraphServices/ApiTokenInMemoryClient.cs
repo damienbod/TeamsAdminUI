@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 
 namespace TeamsAdminUIObo.GraphServices
 {
+    /// <summary>
+    /// Second way of create a GraphServiceClient
+    /// </summary>
     public class ApiTokenInMemoryClient
     {
         private readonly IHttpClientFactory _clientFactory;
