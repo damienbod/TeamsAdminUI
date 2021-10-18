@@ -6,7 +6,7 @@
 
 Blogs:
 
-[Creating Microsoft Teams meetings in ASP.NET Core using Microsoft Graph](https://damienbod.com/2021/09/20/creating-microsoft-teams-meetings-in-asp-net-core-using-microsoft-graph/)
+[Creating Microsoft Teams meetings in ASP.NET Core using Microsoft Graph](https://damienbod.com/2021/09/20/creating-microsoft-teams-meetings-in-asp-net-core-using-microsoft-graph/)  delegated
 
 [Creating Microsoft Teams meetings in ASP.NET Core using Microsoft Graph application permissions part 2](https://damienbod.com/2021/10/18/creating-microsoft-teams-meetings-in-asp-net-core-using-microsoft-graph-application-permissions-part-2/)
 
