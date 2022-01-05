@@ -8,8 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Azure.Services.AppAuthentication" Version="1.6.2" />
-    <PackageReference Include="Microsoft.Identity.Client" Version="4.36.2" />
-    <PackageReference Include="Microsoft.Identity.Web.MicrosoftGraphBeta" Version="1.17.0" />
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.39.0" />
+    <PackageReference Include="Microsoft.Identity.Web.MicrosoftGraphBeta" Version="1.21.1" />
   </ItemGroup>
 
 </Project>
