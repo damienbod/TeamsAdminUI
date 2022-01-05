@@ -14,6 +14,10 @@ Blogs:
 
 https://docs.microsoft.com/en-us/graph/cloud-communication-online-meeting-application-access-policy
 
+## History
+
+2022-01-05 Updated nuget packages
+
 ## Links
 
 https://docs.microsoft.com/en-us/graph/api/application-post-onlinemeetings
