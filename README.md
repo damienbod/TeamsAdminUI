@@ -16,6 +16,8 @@ https://docs.microsoft.com/en-us/graph/cloud-communication-online-meeting-applic
 
 ## History
 
+2023-01-15 Updated nuget packages
+
 2022-01-05 Updated nuget packages
 
 ## Links
