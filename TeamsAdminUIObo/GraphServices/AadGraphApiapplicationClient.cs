@@ -1,102 +1,80 @@
-﻿using Azure.Identity;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Graph;
-using System.Threading.Tasks;
+﻿using Microsoft.Graph;
 
-namespace TeamsAdminUIObo.GraphServices
+namespace TeamsAdminUIObo.GraphServices;
+
+public class AadGraphApiApplicationClient
 {
-    public class AadGraphApiApplicationClient
+    private readonly IConfiguration _configuration;
+    private readonly GraphApplicationClientService _graphApplicationClientService;
+
+    public AadGraphApiApplicationClient(IConfiguration configuration, 
+        GraphApplicationClientService graphApplicationClientService)
     {
-        private readonly IConfiguration _configuration;
+        _configuration = configuration;
+        _graphApplicationClientService = graphApplicationClientService;
+    }
 
-        public AadGraphApiApplicationClient(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
+    private async Task<string> GetUserIdAsync()
+    {
+        var meetingOrganizer = _configuration["AzureAd:MeetingOrganizer"];
+        var filter = $"startswith(userPrincipalName,'{meetingOrganizer}')";
+        var graphServiceClient = _graphApplicationClientService.GetGraphClientWithManagedIdentityOrDevClient();
 
-        private async Task<string> GetUserIdAsync()
-        {
-            var meetingOrganizer = _configuration["AzureAd:MeetingOrganizer"];
-            var filter = $"startswith(userPrincipalName,'{meetingOrganizer}')";
-            var graphServiceClient = GetGraphClient();
+        var users = await graphServiceClient.Users
+            .Request()
+            .Filter(filter)
+            .GetAsync();
 
-            var users = await graphServiceClient.Users
-                .Request()
-                .Filter(filter)
-                .GetAsync();
+        return users.CurrentPage[0].Id;
+    }
 
-            return users.CurrentPage[0].Id;
-        }
+    public async Task SendEmailAsync(Message message)
+    {
+        var graphServiceClient = _graphApplicationClientService.GetGraphClientWithManagedIdentityOrDevClient();
 
-        public async Task SendEmailAsync(Message message)
-        {
-            var graphServiceClient = GetGraphClient();
+        var saveToSentItems = true;
 
-            var saveToSentItems = true;
+        var userId = await GetUserIdAsync();
 
-            var userId = await GetUserIdAsync();
+        await graphServiceClient.Users[userId]
+            .SendMail(message, saveToSentItems)
+            .Request()
+            .PostAsync();
+    }
 
-            await graphServiceClient.Users[userId]
-                .SendMail(message, saveToSentItems)
-                .Request()
-                .PostAsync();
-        }
+    public async Task<OnlineMeeting> CreateOnlineMeeting(OnlineMeeting onlineMeeting)
+    {
+        var graphServiceClient = _graphApplicationClientService.GetGraphClientWithManagedIdentityOrDevClient();
 
-        public async Task<OnlineMeeting> CreateOnlineMeeting(OnlineMeeting onlineMeeting)
-        {
-            var graphServiceClient = GetGraphClient();
+        var userId = await GetUserIdAsync();
 
-            var userId = await GetUserIdAsync();
+        return await graphServiceClient.Users[userId]
+            .OnlineMeetings
+            .Request()
+            .AddAsync(onlineMeeting);
+    }
 
-            return await graphServiceClient.Users[userId]
-                .OnlineMeetings
-                .Request()
-                .AddAsync(onlineMeeting);
-        }
+    public async Task<OnlineMeeting> UpdateOnlineMeeting(OnlineMeeting onlineMeeting)
+    {
+        var graphServiceClient = _graphApplicationClientService.GetGraphClientWithManagedIdentityOrDevClient();
 
-        public async Task<OnlineMeeting> UpdateOnlineMeeting(OnlineMeeting onlineMeeting)
-        {
-            var graphServiceClient = GetGraphClient();
+        var userId = await GetUserIdAsync();
 
-            var userId = await GetUserIdAsync();
+        return await graphServiceClient.Users[userId]
+            .OnlineMeetings[onlineMeeting.Id]
+            .Request()
+            .UpdateAsync(onlineMeeting);
+    }
 
-            return await graphServiceClient.Users[userId]
-                .OnlineMeetings[onlineMeeting.Id]
-                .Request()
-                .UpdateAsync(onlineMeeting);
-        }
+    public async Task<OnlineMeeting> GetOnlineMeeting(string onlineMeetingId)
+    {
+        var graphServiceClient = _graphApplicationClientService.GetGraphClientWithManagedIdentityOrDevClient();
 
-        public async Task<OnlineMeeting> GetOnlineMeeting(string onlineMeetingId)
-        {
-            var graphServiceClient = GetGraphClient();
+        var userId = await GetUserIdAsync();
 
-            var userId = await GetUserIdAsync();
-
-            return await graphServiceClient.Users[userId]
-                .OnlineMeetings[onlineMeetingId]
-                .Request()
-                .GetAsync();
-        }
-
-        private GraphServiceClient GetGraphClient()
-        {
-            string[] scopes = new[] { "https://graph.microsoft.com/.default" };
-            var tenantId = _configuration["AzureAd:TenantId"];
-
-            // Values from app registration
-            var clientId = _configuration.GetValue<string>("AzureAd:ClientId");
-            var clientSecret = _configuration.GetValue<string>("AzureAd:ClientSecret");
-
-            var options = new TokenCredentialOptions
-            {
-                AuthorityHost = AzureAuthorityHosts.AzurePublicCloud
-            };
-
-            // https://docs.microsoft.com/dotnet/api/azure.identity.clientsecretcredential
-            var clientSecretCredential = new ClientSecretCredential(
-                tenantId, clientId, clientSecret, options);
-
-            return new GraphServiceClient(clientSecretCredential, scopes);
-        }
+        return await graphServiceClient.Users[userId]
+            .OnlineMeetings[onlineMeetingId]
+            .Request()
+            .GetAsync();
     }
 }

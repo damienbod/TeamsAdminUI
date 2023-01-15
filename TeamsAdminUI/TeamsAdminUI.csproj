@@ -2,14 +2,16 @@
 
   <PropertyGroup>
     <ProjectGuid>BD4BD465-71CA-4729-B416-877E627206D8</ProjectGuid>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <UserSecretsId>8b423683-761a-488b-ae41-13fce58bc822</UserSecretsId>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Identity.Web" Version="1.21.1" />
-    <PackageReference Include="Microsoft.Identity.Web.UI" Version="1.21.1" />
-    <PackageReference Include="Microsoft.Identity.Web.MicrosoftGraphBeta" Version="1.21.1" />
+    <PackageReference Include="Microsoft.Identity.Web" Version="1.25.10" />
+    <PackageReference Include="Microsoft.Identity.Web.UI" Version="1.25.10" />
+    <PackageReference Include="Microsoft.Identity.Web.MicrosoftGraphBeta" Version="1.25.10" />
   </ItemGroup>
 
 </Project>

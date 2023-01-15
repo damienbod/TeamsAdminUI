@@ -1,85 +1,81 @@
 ﻿using Microsoft.Graph;
-using System;
-using System.Collections.Generic;
-using System.IO;
 
-namespace TeamsAdminUI.GraphServices
+namespace TeamsAdminUI.GraphServices;
+
+public class EmailService
 {
-    public class EmailService
+    MessageAttachmentsCollectionPage MessageAttachmentsCollectionPage = new();
+
+    public Message CreateStandardEmail(string recipient, string header, string body)
     {
-        MessageAttachmentsCollectionPage MessageAttachmentsCollectionPage = new();
-
-        public Message CreateStandardEmail(string recipient, string header, string body)
+        var message = new Message
         {
-            var message = new Message
+            Subject = header,
+            Body = new ItemBody
             {
-                Subject = header,
-                Body = new ItemBody
+                ContentType = BodyType.Text,
+                Content = body
+            },
+            ToRecipients = new List<Recipient>()
+            {
+                new Recipient
                 {
-                    ContentType = BodyType.Text,
-                    Content = body
-                },
-                ToRecipients = new List<Recipient>()
-                {
-                    new Recipient
+                    EmailAddress = new EmailAddress
                     {
-                        EmailAddress = new EmailAddress
-                        {
-                            Address = recipient
-                        }
+                        Address = recipient
                     }
-                },
-                Attachments = MessageAttachmentsCollectionPage
-            };
+                }
+            },
+            Attachments = MessageAttachmentsCollectionPage
+        };
 
-            return message;
-        }
+        return message;
+    }
 
-        public Message CreateHtmlEmail(string recipient, string header, string body)
+    public Message CreateHtmlEmail(string recipient, string header, string body)
+    {
+        var message = new Message
         {
-            var message = new Message
+            Subject = header,
+            Body = new ItemBody
             {
-                Subject = header,
-                Body = new ItemBody
+                ContentType = BodyType.Html,
+                Content = body
+            },
+            ToRecipients = new List<Recipient>()
+            {
+                new Recipient
                 {
-                    ContentType = BodyType.Html,
-                    Content = body
-                },
-                ToRecipients = new List<Recipient>()
-                {
-                    new Recipient
+                    EmailAddress = new EmailAddress
                     {
-                        EmailAddress = new EmailAddress
-                        {
-                            Address = recipient
-                        }
+                        Address = recipient
                     }
-                },
-                Attachments = MessageAttachmentsCollectionPage
-            };
+                }
+            },
+            Attachments = MessageAttachmentsCollectionPage
+        };
 
-            return message;
-        }
+        return message;
+    }
 
-        public void AddAttachment(byte[] rawData, string filePath)
+    public void AddAttachment(byte[] rawData, string filePath)
+    {
+        MessageAttachmentsCollectionPage.Add(new FileAttachment
         {
-            MessageAttachmentsCollectionPage.Add(new FileAttachment
-            {
-                Name = Path.GetFileName(filePath),
-                ContentBytes = EncodeTobase64Bytes(rawData)
-            });
-        }
+            Name = Path.GetFileName(filePath),
+            ContentBytes = EncodeTobase64Bytes(rawData)
+        });
+    }
 
-        public void ClearAttachments()
-        {
-            MessageAttachmentsCollectionPage.Clear();
-        }
+    public void ClearAttachments()
+    {
+        MessageAttachmentsCollectionPage.Clear();
+    }
 
-        static public byte[] EncodeTobase64Bytes(byte[] rawData)
-        {
-            string base64String = System.Convert.ToBase64String(rawData);
-            var returnValue = Convert.FromBase64String(base64String);
-            return returnValue;
-        }
+    static public byte[] EncodeTobase64Bytes(byte[] rawData)
+    {
+        string base64String = System.Convert.ToBase64String(rawData);
+        var returnValue = Convert.FromBase64String(base64String);
+        return returnValue;
     }
 }
