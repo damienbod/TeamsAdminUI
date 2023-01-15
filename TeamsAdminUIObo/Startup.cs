@@ -14,8 +14,8 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddSingleton<GraphApplicationClientService>();
         services.AddScoped<AadGraphApiApplicationClient>();
-        services.AddSingleton<ApiTokenInMemoryClient>();
         services.AddScoped<EmailService>();
         services.AddScoped<TeamsService>();
         services.AddHttpClient();
