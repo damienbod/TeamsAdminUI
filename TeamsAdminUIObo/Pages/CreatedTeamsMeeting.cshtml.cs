@@ -18,10 +18,10 @@ public class CreatedTeamsMeetingModel : PageModel
     }
 
     [BindProperty]
-    public OnlineMeeting Meeting { get; set; }
+    public OnlineMeeting? Meeting { get; set; }
 
     [BindProperty]
-    public string EmailSent { get; set; }
+    public string? EmailSent { get; set; }
 
     public async Task<ActionResult> OnGetAsync(string meetingId)
     {

@@ -11,16 +11,16 @@ public class CreateTeamsMeetingModel : PageModel
     private readonly AadGraphApiDelegatedClient _aadGraphApiDelegatedClient;
     private readonly TeamsService _teamsService;
 
-    public string JoinUrl { get; set; }
+    public string? JoinUrl { get; set; }
 
     [BindProperty]
     public DateTimeOffset Begin { get; set; }
     [BindProperty]
     public DateTimeOffset End { get; set; }
     [BindProperty]
-    public string AttendeeEmail { get; set; }
+    public string? AttendeeEmail { get; set; }
     [BindProperty]
-    public string MeetingName { get; set; }
+    public string? MeetingName { get; set; }
 
     public CreateTeamsMeetingModel(AadGraphApiDelegatedClient aadGraphApiDelegatedClient,
         TeamsService teamsService)
@@ -31,14 +31,14 @@ public class CreateTeamsMeetingModel : PageModel
 
     public async Task<IActionResult> OnPostAsync()
     {
-        if (!ModelState.IsValid)
+        if (!ModelState.IsValid || MeetingName == null)
         {
             return Page();
         }
 
         var meeting = _teamsService.CreateTeamsMeeting(MeetingName, Begin, End);
 
-        var attendees = AttendeeEmail.Split(';');
+        var attendees = AttendeeEmail!.Split(';');
         List<string> items = new();
         items.AddRange(attendees);
         var updatedMeeting = _teamsService.AddMeetingParticipants(
