@@ -11,16 +11,16 @@ public class CreateTeamsMeetingModel : PageModel
     private readonly AadGraphApiApplicationClient _aadGraphApiDelegatedClient;
     private readonly TeamsService _teamsService;
 
-    public string JoinUrl { get; set; }
+    public string? JoinUrl { get; set; }
 
     [BindProperty]
-    public DateTimeOffset Begin { get; set; }
+    public DateTimeOffset Begin { get; set; } = DateTimeOffset.Now;
     [BindProperty]
-    public DateTimeOffset End { get; set; }
+    public DateTimeOffset End { get; set; } = DateTimeOffset.Now;
     [BindProperty]
-    public string AttendeeEmail { get; set; }
+    public string? AttendeeEmail { get; set; }
     [BindProperty]
-    public string MeetingName { get; set; }
+    public string MeetingName { get; set; } = string.Empty;
 
     public CreateTeamsMeetingModel(AadGraphApiApplicationClient aadGraphApiDelegatedClient,
         TeamsService teamsService)
@@ -38,7 +38,7 @@ public class CreateTeamsMeetingModel : PageModel
 
         var meeting = _teamsService.CreateTeamsMeeting(MeetingName, Begin, End);
 
-        var attendees = AttendeeEmail.Split(';');
+        var attendees = AttendeeEmail!.Split(';');
         List<string> items = new();
         items.AddRange(attendees);
         var updatedMeeting = _teamsService.AddMeetingParticipants(
