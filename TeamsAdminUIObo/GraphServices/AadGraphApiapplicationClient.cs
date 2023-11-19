@@ -16,18 +16,18 @@ public class AadGraphApiApplicationClient
         _graphApplicationClientService = graphApplicationClientService;
     }
 
-    private async Task<string> GetUserIdAsync()
+    private async Task<string?> GetUserIdAsync()
     {
         var meetingOrganizer = _configuration["AzureAd:MeetingOrganizer"];
         var filter = $"startswith(userPrincipalName,'{meetingOrganizer}')";
         var graphServiceClient = _graphApplicationClientService.GetGraphClientWithManagedIdentityOrDevClient();
 
-        var users = await graphServiceClient.Users
-            .Request()
-            .Filter(filter)
-            .GetAsync();
+        var users = await graphServiceClient.Users.GetAsync((requestConfiguration) =>
+        {
+            requestConfiguration.QueryParameters.Filter = filter;
+        });
 
-        return users.CurrentPage[0].Id;
+        return users!.Value!.First().Id;
     }
 
     public async Task SendEmailAsync(Message message)
