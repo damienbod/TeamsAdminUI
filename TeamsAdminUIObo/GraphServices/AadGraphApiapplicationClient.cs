@@ -1,6 +1,6 @@
 ﻿using Microsoft.Graph;
-using Microsoft.Graph.Me.SendMail;
 using Microsoft.Graph.Models;
+using Microsoft.Graph.Users.Item.SendMail;
 
 namespace TeamsAdminUIObo.GraphServices;
 
@@ -43,7 +43,8 @@ public class AadGraphApiApplicationClient
             SaveToSentItems = saveToSentItems
         };
 
-        await graphServiceClient.Me.SendMail
+        await graphServiceClient.Users[userId]
+            .SendMail
             .PostAsync(body);
     }
 
