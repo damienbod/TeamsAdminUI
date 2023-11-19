@@ -19,11 +19,17 @@ public class Program
         builder.Services.AddHttpClient();
         builder.Services.AddOptions();
 
-        var scopes = "User.read Mail.Send Mail.ReadWrite OnlineMeetings.ReadWrite";
+        var scopes = new List<string>()
+        {
+            "User.read",
+            "Mail.Send",
+            "Mail.ReadWrite",
+            "OnlineMeetings.ReadWrite"
+        };
 
         builder.Services.AddMicrosoftIdentityWebAppAuthentication(builder.Configuration)
             .EnableTokenAcquisitionToCallDownstreamApi()
-            .AddMicrosoftGraph("https://graph.microsoft.com/beta", scopes)
+            .AddMicrosoftGraph("https://graph.microsoft.com/v1.0", scopes)
             .AddInMemoryTokenCaches();
 
         builder.Services.AddRazorPages().AddMvcOptions(options =>

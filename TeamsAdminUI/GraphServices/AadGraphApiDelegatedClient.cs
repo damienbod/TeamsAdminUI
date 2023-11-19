@@ -1,4 +1,7 @@
 ﻿using Microsoft.Graph;
+using Microsoft.Graph.Communications.OnlineMeetings.CreateOrGet;
+using Microsoft.Graph.Me.SendMail;
+using Microsoft.Graph.Models;
 
 namespace TeamsAdminUI.GraphServices;
 
@@ -15,33 +18,33 @@ public class AadGraphApiDelegatedClient
     {
         var saveToSentItems = true;
 
-        await _graphServiceClient.Me
-            .SendMail(message, saveToSentItems)
-            .Request()
-            .PostAsync();
+        var body = new SendMailPostRequestBody
+        {
+            Message = message,
+            SaveToSentItems = saveToSentItems
+        };
+
+        await _graphServiceClient.Me.SendMail
+            .PostAsync(body);
     }
 
-    public async Task<OnlineMeeting> CreateOnlineMeeting(OnlineMeeting onlineMeeting)
+    public async Task<OnlineMeeting?> CreateOnlineMeeting(OnlineMeeting onlineMeeting)
     {
         return await _graphServiceClient.Me
-            .OnlineMeetings
-            .Request()
-            .AddAsync(onlineMeeting);
+            .OnlineMeetings.PostAsync(onlineMeeting);
     }
 
-    public async Task<OnlineMeeting> UpdateOnlineMeeting(OnlineMeeting onlineMeeting)
+    public async Task<OnlineMeeting?> UpdateOnlineMeeting(OnlineMeeting onlineMeeting)
     {
         return await _graphServiceClient.Me
             .OnlineMeetings[onlineMeeting.Id]
-            .Request()
-            .UpdateAsync(onlineMeeting);
+            .PatchAsync(onlineMeeting);
     }
 
-    public async Task<OnlineMeeting> GetOnlineMeeting(string onlineMeetingId)
+    public async Task<OnlineMeeting?> GetOnlineMeeting(string onlineMeetingId)
     {
         return await _graphServiceClient.Me
             .OnlineMeetings[onlineMeetingId]
-            .Request()
             .GetAsync();
     }
 }
