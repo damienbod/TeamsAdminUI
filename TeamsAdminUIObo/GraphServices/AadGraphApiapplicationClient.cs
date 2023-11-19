@@ -32,7 +32,8 @@ public class AadGraphApiApplicationClient
 
     public async Task SendEmailAsync(Message message)
     {
-        var graphServiceClient = _graphApplicationClientService.GetGraphClientWithManagedIdentityOrDevClient();
+        var graphServiceClient = _graphApplicationClientService
+            .GetGraphClientWithManagedIdentityOrDevClient();
 
         var userId = await GetUserIdAsync();
         var saveToSentItems = true;
