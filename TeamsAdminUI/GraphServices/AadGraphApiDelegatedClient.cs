@@ -30,7 +30,8 @@ public class AadGraphApiDelegatedClient
     public async Task<OnlineMeeting?> CreateOnlineMeeting(OnlineMeeting onlineMeeting)
     {
         return await _graphServiceClient.Me
-            .OnlineMeetings.PostAsync(onlineMeeting);
+            .OnlineMeetings
+            .PostAsync(onlineMeeting);
     }
 
     public async Task<OnlineMeeting?> UpdateOnlineMeeting(OnlineMeeting onlineMeeting)

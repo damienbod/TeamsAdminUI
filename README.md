@@ -16,7 +16,7 @@ https://docs.microsoft.com/en-us/graph/cloud-communication-online-meeting-applic
 
 ## History
 
-2023-11-19 Updated .NET 8
+2023-11-19 Updated .NET 8, Updated to Graph SDK 5
 
 2023-01-15 Updated nuget packages, improved Graph application client
 
