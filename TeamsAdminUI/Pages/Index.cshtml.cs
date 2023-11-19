@@ -11,7 +11,7 @@ public class CreateTeamsMeetingModel : PageModel
     private readonly AadGraphApiDelegatedClient _aadGraphApiDelegatedClient;
     private readonly TeamsService _teamsService;
 
-    public string? JoinUrl { get; set; }
+    public string? JoinWebUrl { get; set; }
 
     [BindProperty]
     public DateTimeOffset Begin { get; set; }
@@ -46,7 +46,7 @@ public class CreateTeamsMeetingModel : PageModel
 
         var createdMeeting = await _aadGraphApiDelegatedClient.CreateOnlineMeeting(updatedMeeting);
 
-        JoinUrl = createdMeeting.JoinUrl;
+        JoinWebUrl = createdMeeting.JoinWebUrl;
 
         return RedirectToPage("./CreatedTeamsMeeting", "Get", new { meetingId = createdMeeting.Id });
     }

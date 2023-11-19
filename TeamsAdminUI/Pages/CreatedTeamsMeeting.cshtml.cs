@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TeamsAdminUI.GraphServices;
 using Microsoft.Graph;
+using Microsoft.Graph.Models;
 
 namespace TeamsAdminUI.Pages;
 
@@ -36,7 +37,7 @@ public class CreatedTeamsMeetingModel : PageModel
         foreach (var attendee in Meeting.Participants.Attendees)
         {
             var recipient = attendee.Upn.Trim();
-            var message = _emailService.CreateStandardEmail(recipient, Meeting.Subject, Meeting.JoinUrl);
+            var message = _emailService.CreateStandardEmail(recipient, Meeting.Subject, Meeting.JoinWebUrl);
             await _aadGraphApiDelegatedClient.SendEmailAsync(message);
         }
 
