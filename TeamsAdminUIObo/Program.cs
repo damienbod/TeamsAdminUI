@@ -1,16 +1,41 @@
+using TeamsAdminUIObo.GraphServices;
+
 namespace TeamsAdminUIObo;
 
-public static class Program
+public class Program
 {
     public static void Main(string[] args)
     {
-        CreateHostBuilder(args).Build().Run();
-    }
+        var builder = WebApplication.CreateBuilder(args);
 
-    public static IHostBuilder CreateHostBuilder(string[] args) =>
-        Host.CreateDefaultBuilder(args)
-            .ConfigureWebHostDefaults(webBuilder =>
-            {
-                webBuilder.UseStartup<Startup>();
-            });
+        builder.Services.AddSingleton<GraphApplicationClientService>();
+        builder.Services.AddScoped<AadGraphApiApplicationClient>();
+        builder.Services.AddScoped<EmailService>();
+        builder.Services.AddScoped<TeamsService>();
+        builder.Services.AddHttpClient();
+        builder.Services.AddOptions();
+
+        builder.Services.AddRazorPages();
+
+        var app = builder.Build();
+
+        if (!app.Environment.IsDevelopment())
+        {
+            app.UseExceptionHandler("/Error");
+            app.UseHsts();
+        }
+
+        app.UseHttpsRedirection();
+        app.UseStaticFiles();
+
+        app.UseRouting();
+
+        app.UseAuthentication();
+        app.UseAuthorization();
+
+        app.MapRazorPages();
+        app.MapControllers();
+
+        app.Run();
+    }
 }
