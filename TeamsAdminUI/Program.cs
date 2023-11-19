@@ -12,14 +12,16 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+        var configuration = builder.Configuration;
+        var services = builder.Services;
 
-        builder.Services.AddScoped<AadGraphApiDelegatedClient>();
-        builder.Services.AddScoped<EmailService>();
-        builder.Services.AddScoped<TeamsService>();
-        builder.Services.AddHttpClient();
-        builder.Services.AddOptions();
+        services.AddScoped<AadGraphApiDelegatedClient>();
+        services.AddScoped<EmailService>();
+        services.AddScoped<TeamsService>();
+        services.AddHttpClient();
+        services.AddOptions();
 
-        var scopes = new List<string>()
+        var scopes = new List<string>
         {
             "User.read",
             "Mail.Send",
@@ -27,12 +29,12 @@ public class Program
             "OnlineMeetings.ReadWrite"
         };
 
-        builder.Services.AddMicrosoftIdentityWebAppAuthentication(builder.Configuration)
-            .EnableTokenAcquisitionToCallDownstreamApi()
-            .AddMicrosoftGraph("https://graph.microsoft.com/v1.0", scopes)
+        services.AddMicrosoftIdentityWebAppAuthentication(configuration)
+            .EnableTokenAcquisitionToCallDownstreamApi(scopes)
+            .AddMicrosoftGraph(defaultScopes: scopes)
             .AddInMemoryTokenCaches();
 
-        builder.Services.AddRazorPages().AddMvcOptions(options =>
+        services.AddRazorPages().AddMvcOptions(options =>
         {
             var policy = new AuthorizationPolicyBuilder()
                 .RequireAuthenticatedUser()

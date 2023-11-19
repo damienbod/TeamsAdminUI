@@ -1,5 +1,4 @@
 ﻿using Microsoft.Graph;
-using Microsoft.Graph.Communications.OnlineMeetings.CreateOrGet;
 using Microsoft.Graph.Me.SendMail;
 using Microsoft.Graph.Models;
 
