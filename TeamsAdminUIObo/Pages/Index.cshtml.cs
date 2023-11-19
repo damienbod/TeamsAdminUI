@@ -46,7 +46,7 @@ public class CreateTeamsMeetingModel : PageModel
 
         var createdMeeting = await _aadGraphApiDelegatedClient.CreateOnlineMeeting(updatedMeeting);
 
-        JoinUrl = createdMeeting.JoinUrl;
+        JoinUrl = createdMeeting.JoinWebUrl;
 
         return RedirectToPage("./CreatedTeamsMeeting", "Get", new { meetingId = createdMeeting.Id });
     }

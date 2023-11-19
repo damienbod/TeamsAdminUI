@@ -1,4 +1,6 @@
 ﻿using Microsoft.Graph;
+using Microsoft.Graph.Me.SendMail;
+using Microsoft.Graph.Models;
 
 namespace TeamsAdminUIObo.GraphServices;
 
@@ -32,17 +34,20 @@ public class AadGraphApiApplicationClient
     {
         var graphServiceClient = _graphApplicationClientService.GetGraphClientWithManagedIdentityOrDevClient();
 
+        var userId = await GetUserIdAsync();
         var saveToSentItems = true;
 
-        var userId = await GetUserIdAsync();
+        var body = new SendMailPostRequestBody
+        {
+            Message = message,
+            SaveToSentItems = saveToSentItems
+        };
 
-        await graphServiceClient.Users[userId]
-            .SendMail(message, saveToSentItems)
-            .Request()
-            .PostAsync();
+        await graphServiceClient.Me.SendMail
+            .PostAsync(body);
     }
 
-    public async Task<OnlineMeeting> CreateOnlineMeeting(OnlineMeeting onlineMeeting)
+    public async Task<OnlineMeeting?> CreateOnlineMeeting(OnlineMeeting onlineMeeting)
     {
         var graphServiceClient = _graphApplicationClientService.GetGraphClientWithManagedIdentityOrDevClient();
 
@@ -50,11 +55,10 @@ public class AadGraphApiApplicationClient
 
         return await graphServiceClient.Users[userId]
             .OnlineMeetings
-            .Request()
-            .AddAsync(onlineMeeting);
+            .PostAsync(onlineMeeting);
     }
 
-    public async Task<OnlineMeeting> UpdateOnlineMeeting(OnlineMeeting onlineMeeting)
+    public async Task<OnlineMeeting?> UpdateOnlineMeeting(OnlineMeeting onlineMeeting)
     {
         var graphServiceClient = _graphApplicationClientService.GetGraphClientWithManagedIdentityOrDevClient();
 
@@ -62,11 +66,10 @@ public class AadGraphApiApplicationClient
 
         return await graphServiceClient.Users[userId]
             .OnlineMeetings[onlineMeeting.Id]
-            .Request()
-            .UpdateAsync(onlineMeeting);
+            .PatchAsync(onlineMeeting);
     }
 
-    public async Task<OnlineMeeting> GetOnlineMeeting(string onlineMeetingId)
+    public async Task<OnlineMeeting?> GetOnlineMeeting(string onlineMeetingId)
     {
         var graphServiceClient = _graphApplicationClientService.GetGraphClientWithManagedIdentityOrDevClient();
 
@@ -74,7 +77,6 @@ public class AadGraphApiApplicationClient
 
         return await graphServiceClient.Users[userId]
             .OnlineMeetings[onlineMeetingId]
-            .Request()
             .GetAsync();
     }
 }
