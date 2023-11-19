@@ -1,16 +1,60 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.Identity.Web;
+using Microsoft.Identity.Web.UI;
+using Microsoft.IdentityModel.Logging;
+using TeamsAdminUI.GraphServices;
+
 namespace TeamsAdminUI;
 
-public static class Program
+public class Program
 {
     public static void Main(string[] args)
     {
-        CreateHostBuilder(args).Build().Run();
-    }
+        var builder = WebApplication.CreateBuilder(args);
 
-    public static IHostBuilder CreateHostBuilder(string[] args) =>
-        Host.CreateDefaultBuilder(args)
-            .ConfigureWebHostDefaults(webBuilder =>
-            {
-                webBuilder.UseStartup<Startup>();
-            });
+        builder.Services.AddScoped<AadGraphApiDelegatedClient>();
+        builder.Services.AddScoped<EmailService>();
+        builder.Services.AddScoped<TeamsService>();
+        builder.Services.AddHttpClient();
+        builder.Services.AddOptions();
+
+        var scopes = "User.read Mail.Send Mail.ReadWrite OnlineMeetings.ReadWrite";
+
+        builder.Services.AddMicrosoftIdentityWebAppAuthentication(builder.Configuration)
+            .EnableTokenAcquisitionToCallDownstreamApi()
+            .AddMicrosoftGraph("https://graph.microsoft.com/beta", scopes)
+            .AddInMemoryTokenCaches();
+
+        builder.Services.AddRazorPages().AddMvcOptions(options =>
+        {
+            var policy = new AuthorizationPolicyBuilder()
+                .RequireAuthenticatedUser()
+                .Build();
+            options.Filters.Add(new AuthorizeFilter(policy));
+        }).AddMicrosoftIdentityUI();
+
+        var app = builder.Build();
+
+        IdentityModelEventSource.ShowPII = true;
+
+        if (!app.Environment.IsDevelopment())
+        {
+            app.UseExceptionHandler("/Error");
+            app.UseHsts();
+        }
+
+        app.UseHttpsRedirection();
+        app.UseStaticFiles();
+
+        app.UseRouting();
+
+        app.UseAuthentication();
+        app.UseAuthorization();
+
+        app.MapRazorPages();
+        app.MapControllers();
+
+        app.Run();
+    }
 }
