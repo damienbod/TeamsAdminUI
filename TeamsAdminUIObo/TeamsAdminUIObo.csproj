@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <ProjectGuid>{7EA6B262-93BA-4D0E-8589-93EFE4AA5963}</ProjectGuid>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <UserSecretsId>13fa9654-77c3-4fcf-a437-97b5368ff790</UserSecretsId>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -10,9 +10,9 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Azure.Services.AppAuthentication" Version="1.6.2" />
-    <PackageReference Include="Microsoft.Identity.Client" Version="4.50.0" />
-    <PackageReference Include="Microsoft.Identity.Web" Version="2.5.0" />
-    <PackageReference Include="Microsoft.Identity.Web.MicrosoftGraphBeta" Version="2.5.0" />
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.57.0" />
+    <PackageReference Include="Microsoft.Identity.Web" Version="2.15.3" />
+    <PackageReference Include="Microsoft.Identity.Web.MicrosoftGraphBeta" Version="2.15.3" />
   </ItemGroup>
 
 </Project>
