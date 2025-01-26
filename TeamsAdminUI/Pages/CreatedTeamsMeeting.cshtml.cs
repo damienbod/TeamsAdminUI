@@ -1,8 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using TeamsAdminUI.GraphServices;
-using Microsoft.Graph;
 using Microsoft.Graph.Models;
+using TeamsAdminUI.GraphServices;
 
 namespace TeamsAdminUI.Pages;
 

@@ -1,5 +1,4 @@
-﻿using Microsoft.Graph;
-using Microsoft.Graph.Models;
+﻿using Microsoft.Graph.Models;
 using Microsoft.Graph.Users.Item.SendMail;
 
 namespace TeamsAdminUIObo.GraphServices;
@@ -9,7 +8,7 @@ public class AadGraphApiApplicationClient
     private readonly IConfiguration _configuration;
     private readonly GraphApplicationClientService _graphApplicationClientService;
 
-    public AadGraphApiApplicationClient(IConfiguration configuration, 
+    public AadGraphApiApplicationClient(IConfiguration configuration,
         GraphApplicationClientService graphApplicationClientService)
     {
         _configuration = configuration;
