@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <ProjectGuid>BD4BD465-71CA-4729-B416-877E627206D8</ProjectGuid>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <UserSecretsId>8b423683-761a-488b-ae41-13fce58bc822</UserSecretsId>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
